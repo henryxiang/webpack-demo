@@ -10,10 +10,10 @@ mkdir src build
 
 
 ### The Simplest Configuration
-Install the dependencies
+Install webpack-dev-server
 
 ```
-npm install -D webpack live-server
+npm install -D webpack-dev-server
 ```
 
 Create Webpack configuration file
@@ -29,25 +29,17 @@ const config = {
 module.exports = config;
 ```
 
-Optionally, create server.js file
+Modify package.json
 ```
-//server.js 
-var liveServer = require('live-server');
-var port = 8000;
-var documentRoot = './build';
-var params = {
-  port: port,
-  host: "0.0.0.0",
-  root: documentRoot,
-  ignore: 'node_modules',
-  wait: 500,
-  logLevel: 2 // 0: errors only, 1: some details, 2: verbose
-};
-liveServer.start(params);
+...
+  "scripts": {
+    "start": "webpack-dev-server --content-base=build --open"
+  }
+...
 ```
 
 ```
-webpack && npm start
+npm start
 ```
 
 ### JavaScript Loaders

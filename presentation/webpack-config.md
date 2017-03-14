@@ -219,6 +219,7 @@ module.exports = {
 ## Environment Settings
 
 ```JavaScript
+//webpack.config.js
 modules.exports = (env) => {
   return {
     entry: './src/app.js',
@@ -255,6 +256,23 @@ webpack -p
 
 ---
 
+## Multiple Entries
+```JavaScript
+//webpack.config.js
+...
+    entry: {
+      app: './src/app.js',
+      contact: './src/contact.js'
+    },
+    output: {
+      path: './build',
+      filename: '[name].bundle.js'
+    },
+...
+```
+
+---
+
 ## Long-term caching
 
 ---
@@ -264,5 +282,26 @@ webpack -p
 ---
 
 ## Lazy-loading ES6 modules
+
+---
+
+## CSS-loader and Style-loader
+```bash
+npm install -D css-loader style-loader
+```
+
+```JavaScript
+...
+    module: {
+      rules: [
+        {test: /\.css$/, use: ['style-loader', 'css-loader']}
+      ]
+    }
+...
+```
+
+```JavaScript
+require('./style.css');
+```
 
 ---
