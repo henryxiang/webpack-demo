@@ -47,7 +47,7 @@ webpack src/app.js build/app.bundle.js
 module.exports = {
   entry: './src/app.js',
   output: {
-    path: './build',
+    path: __dirname + '/build',
     filename: 'bundle.js'
   }
 };
@@ -87,7 +87,7 @@ webpack -d --watch
 module.exports = {
   entry: './src/app.js',
   output: {
-    path: './build',
+    path: __dirname + '/build',
     filename: 'app.bundle.js'
   },
   devtool: 'eval-source-map'
@@ -110,12 +110,12 @@ node_modules/.bin/webpack-dev-server
 module.exports = {
   entry: './src/app.js',
   output: {
-    path: './build',
+    path: __dirname + '/build',
     filename: 'app.bundle.js'
   },
   devtool: 'eval-source-map',
   devServer: {
-    contentBase: './build',
+    contentBase: __dirname + '/build',
     port: 8000,
     open: true,
     compress: true,
@@ -158,7 +158,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/app.js',
   output: {
-    path: './build',
+    path: __dirname + '/build',
     filename: 'app.bundle.js'
   },
   plugins: [new HtmlWebpackPlugin()]
@@ -177,14 +177,14 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/app.js',
   output: {
-    path: './build',
+    path: __dirname + '/build',
     filename: 'app.bundle.js'
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'My Demo App',
-      template: './src/index.ejs',
-      filename: './build/index.html'
+      template: __dirname + '/src/index.ejs',
+      filename: __dirname + '/build/index.html'
     })
   ]
 };
@@ -201,10 +201,10 @@ modules.exports = (env) => {
   return {
     entry: './src/app.js',
     output: {
-      path: './build',
+      path: __dirname + '/build',
       filename: 'app.bundle.js'
     },
-    devtool: env.dev ? eval-source-map' : ''
+    devtool: env.dev ? 'eval-source-map' : ''
   }
 }
 ```
@@ -242,7 +242,7 @@ webpack -p
       contact: './src/contact.js'
     },
     output: {
-      path: './build',
+      path: __dirname + '/build',
       filename: '[name].bundle.js'
     },
 ...

@@ -1,3 +1,5 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const config = {
   entry: './src/app',
   output: {
@@ -6,12 +8,15 @@ const config = {
   },
   devtool: 'eval-source-map',
   devServer: {
-    contentBase: './build',
+    contentBase: __dirname + '/build',
     port: 8000,
     open: true,
     compress: true,
     stats: 'errors-only'
-  }
+  },
+  plugins: [
+     new HtmlWebpackPlugin()
+  ]
 };
 
 const doConfig = (env) => {
