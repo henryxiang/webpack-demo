@@ -4,11 +4,11 @@ const config = {
     path: './build',
     filename: 'app.bundle.js'
   }
-}
+};
 
 const doConfig = (env) => {
   return config;
-}
+};
 
 //module.exports = config;
 module.exports = doConfig;

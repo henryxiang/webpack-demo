@@ -14,9 +14,45 @@ JavaScript Modules (CommonJS vs ES6)
 Module dependency tree
 Entry point and output
 
-### The Minimalist Configuration
+### The Simplest Configuration
 
-Configuration file: webpack.config.js
+```
+npm install -D webpack live-server
+```
+
+Create Webpack configuration file
+```
+//webpack.config.js
+const config = {
+  entry: './src/app',
+  output: {
+    path: './build',
+    filename: 'app.bundle.js'
+  }
+};
+module.exports = config;
+```
+
+Optionally, create server.js file
+```
+//server.js 
+var liveServer = require('live-server');
+var port = 8000;
+var documentRoot = './build';
+var params = {
+  port: port,
+  host: "0.0.0.0",
+  root: documentRoot,
+  ignore: 'node_modules',
+  wait: 500,
+  logLevel: 2 // 0: errors only, 1: some details, 2: verbose
+};
+liveServer.start(params);
+```
+
+```
+webpack && npm start
+```
 
 ### JavaScript Loaders
 

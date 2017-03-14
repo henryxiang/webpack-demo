@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile:watch": "webpack --watch -d"
+    "compile:watch": "webpack --watch -d",
+    "build": "webpack -p --progress"
   },
   "keywords": [],
   "author": "",
