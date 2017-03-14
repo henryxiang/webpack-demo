@@ -14,12 +14,20 @@ const config = {
     compress: true,
     stats: 'errors-only'
   },
+  module: {
+    loaders: [
+      {test: /\.css$/, loaders: ['style-loader', 'css-loader']}
+    ]
+  },
   plugins: [
      new HtmlWebpackPlugin()
   ]
 };
 
 const doConfig = (env) => {
+  if (!env.prod) {
+    config.devtool = '';
+  }
   return config;
 };
 

@@ -24,10 +24,10 @@ webpack src/app.js build/app.bundle.js
 
 ## What's new in Webpack 2
 
-* Support ES6 modules     <!-- .element: class="fragment" -->
-* Tree shaking            <!-- .element: class="fragment" -->
-* Environment profiles    <!-- .element: class="fragment" -->
-* Enhanced resolver       <!-- .element: class="fragment" -->
+* Support ES6 modules           <!-- .element: class="fragment" -->
+* Tree shaking                  <!-- .element: class="fragment" -->
+* Environment profiles          <!-- .element: class="fragment" -->
+* Enhanced resolver             <!-- .element: class="fragment" -->
 
 ---
 
@@ -268,17 +268,19 @@ npm install -D css-loader style-loader
 ```
 
 ```JavaScript
+//webpack.config.js
 ...
     module: {
-      rules: [
-        {test: /\.css$/, use: ['style-loader', 'css-loader']}
+      loaders: [
+        {test: /\.css$/, loader: 'style-loader!css-loader'}
       ]
     }
 ...
 ```
 
 ```JavaScript
-require('./style.css');
+//app.js
+import './style.css';
 ```
 
 ---
