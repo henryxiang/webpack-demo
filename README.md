@@ -8,13 +8,9 @@ npm install -D webpack@2.2
 mkdir src build
 ```
 
-### Basic Concepts
-
-JavaScript Modules (CommonJS vs ES6)
-Module dependency tree
-Entry point and output
 
 ### The Simplest Configuration
+Install the dependencies
 
 ```
 npm install -D webpack live-server
@@ -65,15 +61,15 @@ Image Loaders
 
 ### Plugins
 
-HTML plugin
+* HTML plugin
 
 ### Multiple Entries and Code Split
 
 ### Using NPM Modules
 
-JQuery
-React.js
-Lodash
+* JQuery
+* React.js
+* Lodash
 
 ### Side-loading Third-Party Libraries
 
