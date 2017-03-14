@@ -15,7 +15,7 @@ title: Webpack Configuration
 ## How It Works?
 
 ```bash
-webpack -p src/app.js build/app.bundle.js
+webpack src/app.js build/app.bundle.js
 ```
 
 <img src="how-it-works.png" style="background-color: white" />
@@ -23,6 +23,11 @@ webpack -p src/app.js build/app.bundle.js
 ---
 
 ## What's new in Webpack 2
+
+* Support ES6 modules     <!-- .element: class="fragment" -->
+* Tree shaking            <!-- .element: class="fragment" -->
+* Environment profiles    <!-- .element: class="fragment" -->
+* Enhanced resolver       <!-- .element: class="fragment" -->
 
 ---
 
@@ -35,21 +40,20 @@ webpack -p src/app.js build/app.bundle.js
 
 ---
 
-## The minimum configuration
+## The simplest configuration
 
 ```JavaScript
 // webpack.config.js
-
 module.exports = {
-   entry: './src/app.js',
-   output: {
-       path: './build',
-       filename: 'app.bundle.js'
-   }
+  entry: './src/app.js',
+  output: {
+    path: './build',
+    filename: 'bundle.js'
+  }
 };
 ```
 
-```
+```bash
 webpack
 ```
 
@@ -68,34 +72,146 @@ node_modules/.bin/webpack-validator webpack.config.js
 
 ```bash
 webpack -d --watch
+
+#  -d is the short-hand for
+#    --debug 
+#    --devtool eval-cheap-module-source-map
+#    --output-pathinfo         
 ```
 
 ---
 
-## Dev Server and Source Map
-
+## Enable source map
+```JavaScript
+// webpack.config.js
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: './build',
+    filename: 'app.bundle.js'
+  },
+  devtool: 'eval-source-map'
+};
+```
 
 ---
 
-## Using a dedicate web server
+## Webpack Dev Server
+```bash
+npm install -D webpack-dev-server
+node_modules/.bin/webpack-dev-server
+```
+
+---
+
+## Webpack Dev Server configuration
 ```JavaScript
+// webpack.config.js
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: './build',
+    filename: 'app.bundle.js'
+  },
+  devtool: 'eval-source-map',
+  devServer: {
+    contentBase: './build',
+    port: 8000,
+    open: true,
+    compress: true,
+    stat: 'errors-only'
+  }
+};
+```
+
+---
+
+## Using live-server as an alternative
+```bash
 npm install -D npm-run-parallel
+npm install -D live-server
+```
+
+```JavaScript
+// package.json
+...
+  "scripts" : {
+    "dev:webpack" : "webpack -d --watch --evn.dev",
+    "dev:server" : "live-server ./build",
+    "dev" : "npm-run-parallel dev:webpack dev:server"
+  }
+...
+```
+
+```bash
+npm run dev
+```
+
+---
+
+## Creating a mock API
+```JavaScript
 npm install -D json-server
 ```
 
 ```JavaScript
 // package.json
+...
+  "scripts" : {
+    "dev:webpack" : "webpack -d --watch --evn.dev",
+    "dev:server" : "live-server ./build",
+    "dev:api" : "json-server ./src/db.json",
+    "dev" : "npm-run-parallel dev:webpack dev:server dev:api"
+  }
+...
+```
 
-"scripts" : {
-  "webpack:dev" : "webpack -d --watch --evn.dev",
-  "server:dev" : "json-server src/db.json --static ./build",
-  "dev-mode" : "npm-run-parallel webpack:dev server:dev"
-}
+---
+
+## HTML Webpack Plugin
+
+Basic configuration
+```bash
+npm install -D html-webpack-plugin
+```
+
+```JavaScript
+//webpack.config.js
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: './build',
+    filename: 'app.bundle.js'
+  },
+  plugins: [new HtmlWebpackPlugin()]
+};
 
 ```
 
-```
-npm run dev-mode
+---
+
+## HTML Webpack Plugin
+
+Custom template
+```JavaScript
+//webpack.config.js
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
+  entry: './src/app.js',
+  output: {
+    path: './build',
+    filename: 'app.bundle.js'
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'My Demo App',
+      template: './src/index.ejs',
+      filename: './build/index.html'
+    })
+  ]
+};
+
 ```
 
 ---
