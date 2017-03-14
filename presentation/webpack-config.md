@@ -119,38 +119,16 @@ module.exports = {
     port: 8000,
     open: true,
     compress: true,
-    stat: 'errors-only'
+    stats: 'errors-only'
   }
 };
 ```
 
 ---
 
-## Using live-server as an alternative
-```bash
-npm install -D npm-run-parallel
-npm install -D live-server
-```
-
-```JavaScript
-// package.json
-...
-  "scripts" : {
-    "dev:webpack" : "webpack -d --watch --evn.dev",
-    "dev:server" : "live-server ./build",
-    "dev" : "npm-run-parallel dev:webpack dev:server"
-  }
-...
-```
-
-```bash
-npm run dev
-```
-
----
-
 ## Creating a mock API
 ```JavaScript
+npm install -D npm-run-parallel
 npm install -D json-server
 ```
 
@@ -158,10 +136,9 @@ npm install -D json-server
 // package.json
 ...
   "scripts" : {
-    "dev:webpack" : "webpack -d --watch --evn.dev",
-    "dev:server" : "live-server ./build",
+    "dev:server" : "webpack-dev-server",
     "dev:api" : "json-server ./src/db.json",
-    "dev" : "npm-run-parallel dev:webpack dev:server dev:api"
+    "dev" : "npm-run-parallel dev:server dev:api"
   }
 ...
 ```

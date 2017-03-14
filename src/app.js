@@ -1,3 +1,3 @@
 import cats from './cats.js';
 
-console.log("Lovely cats:", cats);
+console.log("Cats:", cats);
