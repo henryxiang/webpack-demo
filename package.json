@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack -p --progress --color",
     "dev:server": "webpack-dev-server",
     "dev:api": "json-server --watch src/db.json",
     "start": "npm-run-parallel dev:server dev:api",

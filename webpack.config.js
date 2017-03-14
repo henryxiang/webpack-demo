@@ -4,7 +4,7 @@ const config = {
   entry: './src/app',
   output: {
     path: __dirname + '/build',
-    filename: 'app.bundle.js'
+    filename: 'app.bundle-[chunkhash].js'
   },
   devtool: 'eval-source-map',
   devServer: {
