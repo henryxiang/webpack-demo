@@ -4,6 +4,6 @@
 
 ```
 npm init -y
-npm install -D webpack
+npm install -D webpack@2.2
 mkdir src build
 ```
