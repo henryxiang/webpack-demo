@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
   entry: './src/app',
@@ -16,13 +17,23 @@ const config = {
   },
   module: {
     loaders: [
-      // {test: /\.css$/, loaders: ['style-loader', 'css-loader']}
-        {test: /\.css$/, loader: 'style-loader!css-loader'}
-      
+      {
+        test: /\.css$/, 
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader'],
+          publicPath: '/build'
+        })
+      }
+
     ]
   },
   plugins: [
-     new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin(),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
+      allChunks: true  
+    })
   ]
 };
 
@@ -33,5 +44,4 @@ const doConfig = (env) => {
   return config;
 };
 
-//module.exports = config;
 module.exports = doConfig;

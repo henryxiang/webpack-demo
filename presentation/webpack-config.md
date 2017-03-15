@@ -284,3 +284,34 @@ import './style.css';
 ```
 
 ---
+
+## Sass-loader
+```bash
+npm install -D sass-loader
+```
+
+```JavaScript
+//webpack.config.js
+...
+    module: {
+      loaders: [
+        {test: /\.css$/, loader: 'style-loader!css-loader'},
+        {test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader'}
+      ]
+    }
+...
+```
+
+```JavaScript
+//app.js
+import './style.scss';
+```
+
+---
+
+## Extract inline CSS to external file
+```
+npm install -D extract-text-webpack-plugin@2.1
+```
+
+---
