@@ -8,7 +8,7 @@ title: Webpack Configuration
 
 ## What is Webpack?
 
-![webpack](webpack.svg)
+<img src="webpack.svg" />
 
 ---
 
