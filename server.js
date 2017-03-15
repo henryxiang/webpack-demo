@@ -8,7 +8,6 @@
  * The script depends on the following npm modules:
  *    webpack
  *    async
- *    sprintf-js
  *    live-server
  */
 
@@ -28,7 +27,6 @@ var timestamp = function() {
 /* Run Webpack in watch mode */
 var runWatcher = function() {
   var webpack = require('webpack');
-  var sprintf = require("sprintf-js").sprintf;
   var conf = require(base + '/webpack.config-dev');
   var compiler = webpack(conf);
 
