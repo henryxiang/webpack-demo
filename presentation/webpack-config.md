@@ -2,7 +2,7 @@
 title: Webpack Configuration
 ---
 
-# Webpack 2 Configuration
+# Webpack 2
 
 ---
 
@@ -270,7 +270,7 @@ webpack -p
 
 ---
 
-## Separating library modules for long-term caching
+## Separating common modules for long-term caching
 ```JavaScript
 //webpack.config.js
 const webpack = require('webpack');
@@ -330,7 +330,7 @@ Dynamic import using ES6's System.import()
 el.addEventListener('click', (event) => {
   System
     .import('./users')
-    .then((users) => {showUserDetails(users)});
+    .then((module) => {showUserDetails(module.default)});
 });
 
 ```
@@ -395,24 +395,20 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 ...
   module: {
     loaders: [
-      {
-        test: /\.css$/, 
+      { test: /\.css$/, 
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader'],
           publicPath: '/build'
         })
-      }
-    ]
+      }]
   },
   plugins: [
-    new HtmlWebpackPlugin(),
-    new ExtractTextPlugin({
-      filename: 'styles.css',
-      allChunks: true  
-    })
+    new ExtractTextPlugin({filename: 'styles.css', allChunks: true})
   ]
 ...
 ```
 
 ---
+
+## The End

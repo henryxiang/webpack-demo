@@ -1,8 +1,16 @@
 import './app.css';
-import cats from './cats.js';
 import $ from 'jquery';
-import _ from 'lodash';
 
-document.write("<h2>It works!</2>");
+$('#app').append('<a href="#" id="showCats">Show Cats</a><br/><ul id="cats"></ul>');
 
-console.log("Cats:", cats);
+$('#showCats').click(() => {
+  System
+    .import('./cats.js')
+    .then((module) => {
+      console.log("cats:", module.default);
+      for (let cat of module.default) {
+        $('#cats').append(`<li>${cat}</li>`);
+      }
+    })
+
+})

@@ -32,7 +32,11 @@ const config = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'Webpack App',
+      template: __dirname + '/src/index.ejs',
+      filename: __dirname + '/build/index.html'
+    }),
     new ExtractTextPlugin({
       filename: 'styles-[chunkhash].css',
       allChunks: true  
