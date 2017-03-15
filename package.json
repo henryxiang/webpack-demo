@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --progress --env.prod",
-    "dev:server": "webpack-dev-server",
+    "dev:server": "webpack-dev-server --env.prod=false",
     "dev:api": "json-server --watch src/db.json",
     "start": "npm-run-parallel dev:server dev:api",
-    "validate": "webpack-validator webpack.config.js"
+    "validate": "webpack-validator webpack.config.js --env.prod"
   },
   "keywords": [],
   "author": "",
