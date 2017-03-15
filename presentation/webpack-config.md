@@ -40,6 +40,18 @@ webpack src/app.js build/app.bundle.js
 
 ---
 
+## Basic concepts
+
+* Modules             <!-- .element: class="fragment" -->
+* Dependency graph    <!-- .element: class="fragment" -->
+* Loaders             <!-- .element: class="fragment" -->
+* Entry               <!-- .element: class="fragment" -->
+* Chunks              <!-- .element: class="fragment" -->
+* Plugins             <!-- .element: class="fragment" -->
+* Output              <!-- .element: class="fragment" -->
+
+---
+
 ## The simplest configuration
 
 ```JavaScript
@@ -54,16 +66,7 @@ module.exports = {
 ```
 
 ```bash
-webpack
-```
-
----
-
-## Webpack-validator
-
-```bash
-npm install -D webpack-validator
-node_modules/.bin/webpack-validator webpack.config.js
+webpack -p --progress
 ```
 
 ---
@@ -99,7 +102,7 @@ module.exports = {
 ## Webpack Dev Server
 ```bash
 npm install -D webpack-dev-server
-node_modules/.bin/webpack-dev-server
+node_modules/.bin/webpack-dev-server --open
 ```
 
 ---
@@ -250,7 +253,7 @@ webpack -p
 
 ---
 
-## Chunk-hash for long-term caching
+## Using chunkhash for long-term caching
 ```JavaScript
 //webpack.config.js
 ...
@@ -272,10 +275,17 @@ webpack -p
 //webpack.config.js
 const webpack = require('webpack');
 ...
+    entry: {
+      app: './src/app.js'
+    },
+    output: {
+      path: __dirname + '/build',
+      filename: '[name]-[chunkhash].js'
+    },
     plugins: [
       new webpack.optimize.CommonsChunkPlugin({
         name: 'common',
-        filename: 'common.bundle-[chunkhash].js'
+        filename: '[name]-[chunkhash].js'
       })
     ]
 ...
@@ -283,7 +293,47 @@ const webpack = require('webpack');
 
 ---
 
+## Separating library modules for long-term caching
+```JavaScript
+//webpack.config.js
+const webpack = require('webpack');
+...
+    entry: {
+      app: './src/app.js',
+      vendors: ['jquery', 'lodash']
+    },
+    output: {
+      path: __dirname + '/build',
+      filename: '[name]-[chunkhash].js'
+    },
+    plugins: [
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ['common', 'vendors'],
+        filename: '[name]-[chunkhash].js'
+      })
+    ],
+...
+```
+
+---
+
 ## Lazy-loading ES6 modules
+
+Dynamic import using ES6's System.import()
+```JavaScript
+// import users from './users';
+//
+// el.addEventListener('click', (event) => {
+//   showUserDetails(users);
+// });
+
+el.addEventListener('click', (event) => {
+  System
+    .import('./users')
+    .then((users) => {showUserDetails(users)});
+});
+
+```
 
 ---
 

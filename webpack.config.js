@@ -3,10 +3,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack = require('webpack');
 
 const config = {
-  entry: './src/app',
+  entry: {
+    app: './src/app',
+    vendors: ['jquery', 'lodash']
+  },
   output: {
     path: __dirname + '/build',
-    filename: 'app.bundle-[chunkhash].js'
+    filename: '[name]-[chunkhash].js'
   },
   devtool: 'eval-source-map',
   devServer: {
@@ -31,12 +34,12 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin(),
     new ExtractTextPlugin({
-      filename: 'styles.css',
+      filename: 'styles-[chunkhash].css',
       allChunks: true  
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      filename: 'common.bundle-[chunkhash].js'
+      names: ['common', 'vendors'],
+      filename: '[name]-[chunkhash].js'
     })
   ]
 };

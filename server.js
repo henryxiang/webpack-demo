@@ -1,9 +1,23 @@
 #!/usr/bin/env node
 
+/* 
+ * This is the startup script for a Node.js project.
+ * It can be run with `npm start` using the default
+ * package.json settings.
+ * 
+ * The script depends on the following npm modules:
+ *    webpack
+ *    async
+ *    sprintf-js
+ *    live-server
+ */
+
+var async = require('async');
 var path = require('path');
 
 /* Project root directory */
 var base = path.join(__dirname, ".");
+var docRoot = base + '/build';
 
 /* A help function to print formatted current timestamp */
 var timestamp = function() {
@@ -11,11 +25,48 @@ var timestamp = function() {
   return "[" + ts + "]";
 }
 
-/* Development HTTP server */
+/* Run Webpack in watch mode */
+var runWatcher = function() {
+  var webpack = require('webpack');
+  var ProgressPlugin = require('webpack/lib/ProgressPlugin');
+  var sprintf = require("sprintf-js").sprintf;
+  var conf = require(base + '/webpack.config');
+  var compiler = webpack(conf);
+
+  // Apply ProgressPlugin to webpack compiler to show progress
+  compiler.apply(new ProgressPlugin(function(percentage, msg) {
+    if (percentage === 0) {
+      console.log("Compiling source")
+    }
+    else if (percentage === 1) {
+      console.log("Compiling finished");
+    }
+    else {
+      process.stdout.write(sprintf("%d%% %-25s\r", Math.round(percentage * 100), msg));
+    }
+  }));
+
+  console.log(timestamp(), "Starting Webpack watcher");
+  compiler.watch(
+    {
+      aggregateTimeout: 300, // wait so long for more changes
+      poll: true
+    },
+    function(err, stats) {
+      if(err) {
+        console.log(err);
+        return;
+      }
+      console.log(stats.toString("normal"));
+    }
+  )
+};
+
+/* Run development HTTP server */
 var runServer = function() {
   var liveServer = require('live-server');
   var port = 8000;
-  var documentRoot = base + '/build';
+  var documentRoot = docRoot;
   var params = {
     port: port,
     host: "0.0.0.0",
@@ -29,4 +80,8 @@ var runServer = function() {
   liveServer.start(params);
 };
 
-runServer();
+/* Start HTTP server and Webpack watcher in parallel */
+async.parallel([
+  runServer,
+  function() { setTimeout(runWatcher, 2000); }
+]);
