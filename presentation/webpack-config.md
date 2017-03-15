@@ -22,6 +22,18 @@ webpack src/app.js build/app.bundle.js
 
 ---
 
+## Basic concepts
+
+* Modules             <!-- .element: class="fragment" -->
+* Dependency graph    <!-- .element: class="fragment" -->
+* Loaders             <!-- .element: class="fragment" -->
+* Entry               <!-- .element: class="fragment" -->
+* Chunks              <!-- .element: class="fragment" -->
+* Plugins             <!-- .element: class="fragment" -->
+* Output              <!-- .element: class="fragment" -->
+
+---
+
 ## What's new in Webpack 2
 
 * Support ES6 modules           <!-- .element: class="fragment" -->
@@ -37,18 +49,6 @@ webpack src/app.js build/app.bundle.js
 * build/              <!-- .element: class="fragment" -->
 * node_modules/       <!-- .element: class="fragment" -->
 * webpack.config.js   <!-- .element: class="fragment" -->
-
----
-
-## Basic concepts
-
-* Modules             <!-- .element: class="fragment" -->
-* Dependency graph    <!-- .element: class="fragment" -->
-* Loaders             <!-- .element: class="fragment" -->
-* Entry               <!-- .element: class="fragment" -->
-* Chunks              <!-- .element: class="fragment" -->
-* Plugins             <!-- .element: class="fragment" -->
-* Output              <!-- .element: class="fragment" -->
 
 ---
 
@@ -407,6 +407,54 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
     new ExtractTextPlugin({filename: 'styles.css', allChunks: true})
   ]
 ...
+```
+
+---
+
+## Babel-loader for React.js
+```bash
+npm install -D babel-core babel-loader babel-polyfill
+npm install -D babel-preset-es2015-webpack 
+npm install -D babel-preset-react babel-preset-stage-0
+```
+
+```JavaScript
+//.babelrc
+{
+  "presets": ["es2015-webpack", "react", "stage-0"]
+}
+```
+
+```JavaScript
+//webpack.config.js
+...
+    loaders: [
+      { test: /\.jsx$/, loader: 'babel-loader' }
+    ]
+...
+```
+
+---
+
+## Using Webpack API
+```JavaScript
+var webpack = require('webpack');
+var conf = require(__dirname + '/webpack.config');
+var compiler = webpack(conf);
+
+compiler.watch(
+  {
+    aggregateTimeout: 300, // wait so long for more changes
+    poll: true
+  },
+  function(err, stats) {
+    if(err) {
+      console.log(err);
+      return;
+    }
+    console.log(stats.toString("normal"));
+  }
+)
 ```
 
 ---
