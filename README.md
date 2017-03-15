@@ -3,7 +3,7 @@
 
 ### Basic concepts
 
-1. Modules: webpack treats every file (.css, .html, .scss, .jpg, etc.) as a module.
+1. Modules: webpack treats every file (.js, .css, .html, .scss, .jpg, etc.) as a module.
 2. Dependency graph: the inter-dependent relationship of modules form a graph data structure.
 3. Loaders: transform files into modules as they are added to the dependency graph.
 4. Entry: the starting point of dependency graph of modules.
