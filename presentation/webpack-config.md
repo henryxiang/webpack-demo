@@ -121,6 +121,7 @@ module.exports = {
     contentBase: __dirname + '/build',
     port: 8000,
     open: true,
+    hot: true,
     compress: true,
     stats: 'errors-only'
   }
@@ -221,17 +222,25 @@ webpack --env.dev
 ## Tree Shaking
 
 ```JavaScript
-// .babelrc
+// utils.js
+export foo() {
+  ...
+}
 
--  "presets": ["es2015", ...]
-+  "presets": ["es2015-webpack", ...]
+export bar() {
+  ...
+}
+```
 
+```JavaScript
+// app.js
+import {foo} from './utils';
+foo();
+...
 ```
 
 ```bash
-npm isntall -D babel-preset-es2015-webpack
 webpack -p
-
 ```
 
 ---
@@ -414,14 +423,14 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 ## Babel-loader for React.js
 ```bash
 npm install -D babel-core babel-loader babel-polyfill
-npm install -D babel-preset-es2015-webpack 
-npm install -D babel-preset-react babel-preset-stage-0
+npm install -D babel-preset-es2015 babel-preset-react babel-preset-stage-0
+npm install -s react react-dom
 ```
 
 ```JavaScript
 //.babelrc
 {
-  "presets": ["es2015-webpack", "react", "stage-0"]
+  "presets": ["es2015", "react", "stage-0"]
 }
 ```
 
