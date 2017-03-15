@@ -438,7 +438,7 @@ npm install -s react react-dom
 //webpack.config.js
 ...
     loaders: [
-      { test: /\.jsx$/, loader: 'babel-loader' }
+      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel-loader' }
     ]
 ...
 ```

@@ -28,7 +28,8 @@ const config = {
           use: ['css-loader'],
           publicPath: '/build'
         })
-      }
+      },
+      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'}
     ]
   },
   plugins: [
