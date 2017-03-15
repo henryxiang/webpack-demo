@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const webpack = require('webpack');
 
 const config = {
   entry: './src/app',
@@ -25,7 +26,6 @@ const config = {
           publicPath: '/build'
         })
       }
-
     ]
   },
   plugins: [
@@ -33,6 +33,10 @@ const config = {
     new ExtractTextPlugin({
       filename: 'styles.css',
       allChunks: true  
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'common',
+      filename: 'common.bundle-[chunkhash].js'
     })
   ]
 };

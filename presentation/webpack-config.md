@@ -168,7 +168,7 @@ module.exports = {
 
 ---
 
-## HTML Webpack Plugin
+## Configure HTML Webpack Plugin
 
 Custom template
 ```JavaScript
@@ -250,11 +250,36 @@ webpack -p
 
 ---
 
-## Long-term caching
+## Chunk-hash for long-term caching
+```JavaScript
+//webpack.config.js
+...
+    entry: {
+      app: './src/app.js',
+      contact: './src/contact.js'
+    },
+    output: {
+      path: __dirname + '/build',
+      filename: '[name]-[chunkhash].js'
+    },
+...
+```
 
 ---
 
-## Separate common modules and third-party libraries
+## Separating library modules for long-term caching
+```JavaScript
+//webpack.config.js
+const webpack = require('webpack');
+...
+    plugins: [
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'common',
+        filename: 'common.bundle-[chunkhash].js'
+      })
+    ]
+...
+```
 
 ---
 
@@ -309,9 +334,35 @@ import './style.scss';
 
 ---
 
-## Extract inline CSS to external file
-```
+## Extracting inline CSS to external file
+```bash
 npm install -D extract-text-webpack-plugin@2.1
+```
+
+```JavaScript
+//webpack.config.js
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+...
+  module: {
+    loaders: [
+      {
+        test: /\.css$/, 
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader'],
+          publicPath: '/build'
+        })
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin(),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
+      allChunks: true  
+    })
+  ]
+...
 ```
 
 ---
