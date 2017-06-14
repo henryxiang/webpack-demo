@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 const config = {
   entry: {
-    app: './src/app',
+    app: './src/index',
     vendors: ['jquery', 'lodash']
   },
   output: {
@@ -21,6 +21,11 @@ const config = {
   },
   module: {
     loaders: [
+      { 
+        test: /\.jsx?$/, 
+        exclude: /node_modules/, 
+        loader: 'babel-loader'
+      },
       {
         test: /\.css$/, 
         loader: ExtractTextPlugin.extract({
@@ -29,7 +34,30 @@ const config = {
           publicPath: '/build'
         })
       },
-      { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'}
+      {
+        test: /\.less$/,
+        loader: "style-loader!css-loader!less-loader"
+      },
+      {
+        test: /\.scss$/,
+        loaders:"style-loader!css-loader!sass-loader"
+      },
+      {
+        test: /\.gif$/,
+        loader: "url-loader?mimetype=image/gif"
+      },
+      {
+        test: /\.png$/,
+        loader: "url-loader?mimetype=image/png"
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/,
+        loader: "url-loader?mimetype=application/font-woff"
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/,
+        loader: "url-loader?mimetype=application/font-[ext]"
+      }
     ]
   },
   plugins: [

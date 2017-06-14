@@ -1,7 +1,7 @@
 import './app.css';
 import $ from 'jquery';
 
-$('#app').append('<a href="#" id="showCats">Show Cats</a><br/><div id="viewPort"/>');
+$('#app').append('<a href="#" id="showCats">Show All Cats</a><br/><div id="viewPort"/>');
 
 $('#showCats').click(() => {
   System
